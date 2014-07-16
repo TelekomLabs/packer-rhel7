@@ -20,11 +20,14 @@ EOL
 # Install haveged for entropy
 yum -y install haveged
 
-# remove uuid
-sed -i '/UUID/d' /etc/sysconfig/network-scripts/ifcfg-enp*
-sed -i '/HWADDR/d' /etc/sysconfig/network-scripts/ifcfg-enp*
+# Configure serial console
+sed -i '/kernel/s|$| console=tty0 console=ttyS0,115200n8 |' /boot/grub/grub.conf
 
-# remove password from root
-passwd -d root
+# remove uuid
+sed -i '/UUID/d' /etc/sysconfig/network-scripts/ifcfg-e*
+sed -i '/HWADDR/d' /etc/sysconfig/network-scripts/ifcfg-e*
+
+# replace password from root with a encrypted one
+# usermod -p "*" root
 
 
