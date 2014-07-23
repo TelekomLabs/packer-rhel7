@@ -1,7 +1,24 @@
-# to install the following packages, epel is required
-yum -y update
+# Configure serial console
+yum -y install grub2-tools
 
-# Installs cloudinit
+cat > /etc/default/grub <<EOF
+GRUB_TIMEOUT=5
+GRUB_DISTRIBUTOR="\$(sed 's, release .*\$,,g' /etc/system-release)"
+GRUB_DEFAULT=saved
+GRUB_DISABLE_SUBMENU=true
+GRUB_TERMINAL_OUTPUT="console"
+GRUB_CMDLINE_LINUX="rd.lvm.lv=centos/swap crashkernel=auto  rd.lvm.lv=centos/root vconsole.font=latarcyrheb-sun16 vconsole.keymap=de-latin1 rhgb console=ttyS0"
+GRUB_DISABLE_RECOVERY="true"
+EOF
+
+grub2-mkconfig -o /boot/grub2/grub.cfg
+
+
+# remove uuid
+sed -i '/UUID/d' /etc/sysconfig/network-scripts/ifcfg-e*
+sed -i '/HWADDR/d' /etc/sysconfig/network-scripts/ifcfg-e*
+
+# Installs cloudinit, epel is required
 yum -y install cloud-init
 
 # configure cloud init 'cloud-user' as sudo
@@ -19,13 +36,6 @@ EOL
 
 # Install haveged for entropy
 yum -y install haveged
-
-# Configure serial console
-sed -i '/kernel/s|$| console=tty0 console=ttyS0,115200n8 |' /boot/grub/grub.conf
-
-# remove uuid
-sed -i '/UUID/d' /etc/sysconfig/network-scripts/ifcfg-e*
-sed -i '/HWADDR/d' /etc/sysconfig/network-scripts/ifcfg-e*
 
 # replace password from root with a encrypted one
 # usermod -p "*" root
