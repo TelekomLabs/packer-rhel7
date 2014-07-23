@@ -12,7 +12,7 @@
         "execute_command": "echo 'packer'|sudo -S sh '{{.Path}}'"
       }
     },
-    "only": ["centos-7-vbox", "oel-7-cloud-kvm"]
+    "only": ["centos-7-vbox"]
   }, {
     "type": "shell",
     "scripts": [
@@ -27,7 +27,7 @@
         "execute_command": "sh '{{.Path}}'"
       }
     },
-    "only": ["centos-7-cloud-kvm"]
+    "only": ["centos-7-cloud-kvm", "oel-7-cloud-kvm"]
   }],
   "builders": [{
       "name": "centos-7-vbox",
