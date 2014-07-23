@@ -13,6 +13,21 @@
       }
     },
     "only": ["centos-7-vbox"]
+  }, {
+    "type": "shell",
+    "scripts": [
+      "scripts/base.sh",
+      "scripts/epel.sh",
+      "scripts/cloud.sh",
+      "scripts/cleanup.sh",
+      "scripts/zerodisk.sh"
+    ],
+    "override": {
+      "centos-7-cloud-kvm": {
+        "execute_command": "sh '{{.Path}}'"
+      }
+    },
+    "only": ["centos-7-cloud-kvm", "oel-7-cloud-kvm"]
   }],
   "builders": [{
       "name": "centos-7-vbox",
@@ -27,7 +42,6 @@
       "iso_checksum": "ee505335bcd4943ffc7e6e6e55e5aaa8da09710b6ceecda82a5619342f1d24d9",
       "iso_checksum_type": "sha256",
       "iso_url": "http://ftp-stud.fht-esslingen.de/pub/Mirrors/centos/7.0.1406/isos/x86_64/CentOS-7.0-1406-x86_64-DVD.iso",
-      "output_directory": "img_centos_65_virtualbox",
       "ssh_username": "packer",
       "ssh_password": "packer",
       "ssh_port": 22,
@@ -48,6 +62,58 @@
           "--cpus",
           "1"
         ]
+      ]
+    }, {
+      "name": "centos-7-cloud-kvm",
+      "type": "qemu",
+      "iso_checksum": "ee505335bcd4943ffc7e6e6e55e5aaa8da09710b6ceecda82a5619342f1d24d9",
+      "iso_checksum_type": "sha256",
+      "iso_url": "http://ftp-stud.fht-esslingen.de/pub/Mirrors/centos/7.0.1406/isos/x86_64/CentOS-7.0-1406-x86_64-DVD.iso",
+      "ssh_wait_timeout": "30s",
+      "shutdown_command": "shutdown -P now",
+      "disk_size": 10140,
+      "format": "qcow2",
+      "headless": false,
+      "accelerator": "kvm",
+      "http_directory": "http",
+      "http_port_min": 10082,
+      "http_port_max": 10089,
+      "ssh_host_port_min": 2222,
+      "ssh_host_port_max": 2229,
+      "ssh_username": "root",
+      "ssh_password": "changeme",
+      "ssh_port": 22,
+      "ssh_wait_timeout": "90m",
+      "net_device": "virtio-net",
+      "disk_interface": "virtio",
+      "boot_command": [
+        "<tab> append initrd=initrd.img inst.text inst.ks=http://{{ .HTTPIP }}:{{ .HTTPPort }}/ks.cfg<enter><wait>"
+      ]
+    },{
+      "name": "oel-7-cloud-kvm",
+      "type": "qemu",
+      "iso_checksum": "935a77128b4c4c02bccf1a475c5bdf71c7c9c3644258fbb6bd12de3dd3730431",
+      "iso_checksum_type": "sha256",
+      "iso_url": "file:///home/chris/images/OracleLinux-R7-U0-Server-x86_64-dvd.iso",
+      "ssh_wait_timeout": "30s",
+      "shutdown_command": "shutdown -P now",
+      "disk_size": 10140,
+      "format": "qcow2",
+      "headless": false,
+      "accelerator": "kvm",
+      "http_directory": "http",
+      "http_port_min": 10082,
+      "http_port_max": 10089,
+      "ssh_host_port_min": 2222,
+      "ssh_host_port_max": 2229,
+      "ssh_username": "root",
+      "ssh_password": "changeme",
+      "ssh_port": 22,
+      "ssh_wait_timeout": "90m",
+      "net_device": "virtio-net",
+      "disk_interface": "virtio",
+      "boot_command": [
+        "<tab> append initrd=initrd.img inst.text inst.ks=http://{{ .HTTPIP }}:{{ .HTTPPort }}/ks.cfg<enter><wait>"
       ]
     }],
   "post-processors": [{
