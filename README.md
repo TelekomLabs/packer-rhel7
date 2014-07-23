@@ -1,5 +1,6 @@
+# Packer Image Builder for RHEL Family 7
 
-# Build CentOS 7 Cloud Image
+## Build CentOS 7 Cloud Image
 
 ```bash
 # start the installation
