@@ -29,6 +29,8 @@ The Cloud Images are build on the following guidelines:
 
 ### CentOS 7
 
+CentOS 7 is the next major release with [great new features](http://wiki.centos.org/Manuals/ReleaseNotes/CentOS7).
+
 ```bash
 # start the installation
 packer build -only=centos-7-cloud-kvm rhel7.json
@@ -42,6 +44,18 @@ glance image-create --name "CentOS 7" --container-format ovf --disk-format qcow2
 
 ### Oracle Linux 7
 
+Recently Oracle launched their public release of [Oracle Linux 7](https://blogs.oracle.com/linux/entry/oracle_linux_7_is_now). Currently you require to download the ISO image via [Oracle edelivery](https://edelivery.oracle.com/linux/) before the packer build process. Once you have downloaded the image, change 
+
+```javascript
+{
+      "name": "oel-7-cloud-kvm",
+      "type": "qemu",
+      ...
+      "iso_url": "file:///your/path/to/OracleLinux-R7-U0-Server-x86_64-dvd.iso"
+      ...
+}
+```
+
 ```bash
 # start the installation
 packer build -only=oel-7-cloud-kvm rhel7.json
@@ -52,6 +66,10 @@ qemu-img convert -c -f qcow2 -O qcow2 -o cluster_size=2M output-oel-7-cloud-kvm/
 # upload the image to open stack
 glance image-create --name "OEL 7" --container-format ovf --disk-format qcow2 --file output-oel-7-cloud-kvm/packer-oel-7-cloud-kvm.compressed.qcow2 --is-public True --progress
 ```
+
+### RedHat 7
+
+not yet supported.
 
 ## Meta Data Server
 
