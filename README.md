@@ -1,4 +1,4 @@
-# Packer Image Builder for RHEL Family 7
+# Packer Image Builder for RHEL Family 7 (RedHat, CentOS, Oracle Linux)
 
 ## Introduction
 
@@ -12,6 +12,7 @@ This repository can be used to build
 
 * Vagrant boxes
 * KVM images (e.g. for Open Stack)
+* VmWare
 
 ## Requirements
 
