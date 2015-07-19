@@ -38,7 +38,7 @@ wget ftp://rpmfind.net/linux/centos/7.1.1503/os/x86_64/Packages/python-pygments-
 sudo yum install -y python-pygments-1.4-9.el7.noarch.rpm
 
 # Installs cloudinit, epel is required
-yum -y install cloud-utils cloud-init parted git
+yum -y install cloud-utils-growpart cloud-init parted git
 
 # configure cloud init 'cloud-user' as sudo
 # this is not configured via default cloudinit config
