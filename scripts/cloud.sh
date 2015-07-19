@@ -25,6 +25,13 @@ grub2-mkconfig -o /boot/grub2/grub.cfg
 sed -i '/UUID/d' /etc/sysconfig/network-scripts/ifcfg-e*
 sed -i '/HWADDR/d' /etc/sysconfig/network-scripts/ifcfg-e*
 
+# Disable the zeroconf route
+echo "NOZEROCONF=yes" >> /etc/sysconfig/network
+echo "PERSISTENT_DHCLIENT=yes" >> /etc/sysconfig/network
+
+# Configure network cards and remove device specific configuration
+rm -f /etc/udev/rules.d/70-persistent-net.rules
+touch /etc/udev/rules.d/70-persistent-net.rules
 # Installs cloudinit, epel is required
 yum -y install cloud-utils cloud-init parted git
 
@@ -46,4 +53,5 @@ yum -y install haveged
 
 # remove password from root
 passwd -d root
+passwd -l root
 
