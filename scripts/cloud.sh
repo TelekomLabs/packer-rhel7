@@ -32,6 +32,11 @@ echo "PERSISTENT_DHCLIENT=yes" >> /etc/sysconfig/network
 # Configure network cards and remove device specific configuration
 rm -f /etc/udev/rules.d/70-persistent-net.rules
 touch /etc/udev/rules.d/70-persistent-net.rules
+
+# For CentOS/RHEL distributions, not all python packages are not available in the default and epel repositories.
+wget ftp://rpmfind.net/linux/centos/7.1.1503/os/x86_64/Packages/python-pygments-1.4-9.el7.noarch.rpm
+sudo yum install -y python-pygments-1.4-9.el7.noarch.rpm
+
 # Installs cloudinit, epel is required
 yum -y install cloud-utils cloud-init parted git
 
