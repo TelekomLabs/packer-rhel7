@@ -69,6 +69,11 @@
       "disk_interface": "virtio",
       "boot_command": [
         "<tab> append initrd=initrd.img inst.text inst.ks=http://{{ .HTTPIP }}:{{ .HTTPPort }}/ks_cloud_oel.cfg<enter><wait>"
+      ],
+      "qemuargs": [
+        [ "-m", "1024m" ],
+        ["-machine", "type=pc,accel=kvm"],
+        ["-device", "virtio-net-pci,netdev=user.0"]
       ]
     }],
   "post-processors": []
