@@ -1,5 +1,4 @@
 # delete packages
-yum -y erase gtk2 libX11 hicolor-icon-theme avahi freetype bitstream-vera-fonts
 rm -rf VBoxGuestAdditions_*.iso
 
 # clean yum history
