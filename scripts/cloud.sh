@@ -24,7 +24,7 @@ sed -i '/UUID/d' /etc/sysconfig/network-scripts/ifcfg-e*
 sed -i '/HWADDR/d' /etc/sysconfig/network-scripts/ifcfg-e*
 
 # Installs cloudinit, epel is required
-#yum -y install cloud-init
+yum -y install cloud-utils cloud-init parted git
 
 # configure cloud init 'cloud-user' as sudo
 # this is not configured via default cloudinit config
