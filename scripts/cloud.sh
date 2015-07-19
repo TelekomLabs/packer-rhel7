@@ -1,9 +1,11 @@
 # Configure serial console
 yum -y install grub2-tools
 
+cat /etc/default/grub
+
 # https://access.redhat.com/documentation/en-US/Red_Hat_Enterprise_Linux/7/html/System_Administrators_Guide/sec-GRUB_2_over_Serial_Console.html#sec-Configuring_GRUB_2
 cat > /etc/default/grub <<EOF
-GRUB_DEFAULT=0
+GRUB_DEFAULT=saved
 GRUB_HIDDEN_TIMEOUT=0
 GRUB_HIDDEN_TIMEOUT_QUIET=true
 GRUB_TIMEOUT=1
