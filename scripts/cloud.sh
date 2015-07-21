@@ -33,6 +33,10 @@ echo "PERSISTENT_DHCLIENT=yes" >> /etc/sysconfig/network
 rm -f /etc/udev/rules.d/70-persistent-net.rules
 touch /etc/udev/rules.d/70-persistent-net.rules
 
+# support second network card
+cp /etc/sysconfig/network-scripts/ifcfg-eth0 /etc/sysconfig/network-scripts/ifcfg-eth1
+sed -i 's/eth0/eth1/' /etc/sysconfig/network-scripts/ifcfg-eth1
+
 # For CentOS/RHEL distributions, not all python packages are not available in the default and epel repositories.
 wget ftp://rpmfind.net/linux/centos/7.1.1503/os/x86_64/Packages/python-pygments-1.4-9.el7.noarch.rpm
 yum install -y python-pygments-1.4-9.el7.noarch.rpm
